@@ -19,19 +19,16 @@
         <Image x:Name="newImagePreview" HorizontalAlignment="Left" Height="225" Margin="309,28,0,0" VerticalAlignment="Top" Width="225" ToolTip="Image Preview"/>
         <Label x:Name="originalLabel" Content="Original" HorizontalAlignment="Left" Margin="114,-10,0,0" VerticalAlignment="Top" FontSize="16"/>
         <Label x:Name="modifiedLabel" Content="Modifed" HorizontalAlignment="Left" Margin="385,-10,0,0" VerticalAlignment="Top" FontSize="16"/>
-        <Button x:Name="revertImageButton" Content="Apply To Image" HorizontalAlignment="Left" Margin="571,275,0,0" VerticalAlignment="Top" Width="190" Height="35" ToolTip="Select Image File To Load"/>
+        <Button x:Name="applyToImageButton" Content="Apply To Image" HorizontalAlignment="Left" Margin="571,275,0,0" VerticalAlignment="Top" Width="190" Height="35" ToolTip="Select Image File To Load" Click="applyToImageButton_Click"/>
         <TextBox x:Name="redTextBox" TextWrapping="Wrap" Text="{Binding Value, ElementName=sliderRed, UpdateSourceTrigger=PropertyChanged}" Margin="579,91,163.667,217" BorderBrush="{x:Null}" Width="52" Height="24"/>
         <TextBox x:Name="greenTextBox" TextWrapping="Wrap" Text="{Binding Value, ElementName=sliderGreen, UpdateSourceTrigger=PropertyChanged}" Margin="579,139,163.667,169" BorderBrush="{x:Null}" Width="52" Height="24"/>
         <TextBox x:Name="blueTextBox" TextWrapping="Wrap" Text="{Binding Value, ElementName=sliderBlue, UpdateSourceTrigger=PropertyChanged}" Margin="579,186,163.667,122" BorderBrush="{x:Null}" Width="52" Height="24"/>
-        <TextBox x:Name="brightnessTextBox" TextWrapping="Wrap" Text="{Binding Value, ElementName=sliderBrightness, UpdateSourceTrigger=PropertyChanged}" Margin="579,229,163.667,79" BorderBrush="{x:Null}" Width="52" Height="24"/>
-        <Slider x:Name="sliderRed" HorizontalAlignment="Left" Margin="615,91,0,0" VerticalAlignment="Top" Width="132" Minimum="-10" SmallChange="1" IsSnapToTickEnabled="True"/>
-        <Slider x:Name="sliderGreen" HorizontalAlignment="Left" Margin="615,139,0,0" VerticalAlignment="Top" Width="132" Minimum="-10" SmallChange="1" IsSnapToTickEnabled="True" TickFrequency="1"/>
-        <Slider x:Name="sliderBlue" HorizontalAlignment="Left" Margin="615,186,0,0" VerticalAlignment="Top" Width="132" Minimum="-10" SmallChange="1" IsSnapToTickEnabled="True" TickFrequency="1"/>
-        <Slider x:Name="sliderBrightness" HorizontalAlignment="Left" Margin="615,230,0,0" VerticalAlignment="Top" Width="132" Minimum="-10" SmallChange="1" IsSnapToTickEnabled="True" TickFrequency="1"/>
-      
+        <Slider x:Name="sliderRed" HorizontalAlignment="Left" Margin="615,91,0,0" VerticalAlignment="Top" Width="132" Minimum="-100" SmallChange="1" IsSnapToTickEnabled="True" LargeChange="10" Maximum="100"/>
+        <Slider x:Name="sliderGreen" HorizontalAlignment="Left" Margin="615,139,0,0" VerticalAlignment="Top" Width="132" Minimum="-100" SmallChange="1" IsSnapToTickEnabled="True" TickFrequency="1" LargeChange="10" Maximum="100"/>
+        <Slider x:Name="sliderBlue" HorizontalAlignment="Left" Margin="615,186,0,0" VerticalAlignment="Top" Width="132" Minimum="-100" SmallChange="1" IsSnapToTickEnabled="True" TickFrequency="1" LargeChange="10" Maximum="100"/>
+
         <Label x:Name="green" Content="Green" Margin="660,118,84.667,174" Width="50" Height="40"/>
         <Label x:Name="blue" Content="Blue" Margin="664,165,80.667,127" Width="50" Height="40"/>
-        <Label x:Name="brightness" Content="Brightness" Margin="650,209,44.667,83" Width="100" Height="40"/>
 
     </Grid>
 </Window>
