@@ -22,10 +22,7 @@ namespace ImageFilterApp
     public partial class MainWindow : Window
     {
         public string ImageFilePath { get; set; }
-        public string FilePathOfWorkingDirectory
-        {
-            get { return System.IO.Path.GetDirectoryName(ImageFilePath); }
-        }
+        public Bitmap ModifiedBitmap { get; private set; }
 
         public MainWindow()
         {
@@ -33,7 +30,7 @@ namespace ImageFilterApp
         }
 
 
-        private void ChangeImageColors(ColorModifier newColorInfo)
+        public void ChangeImageColors(ColorModifier newColorInfo)
         {
             byte[] imageInBytes = File.ReadAllBytes(ImageFilePath);
 
@@ -55,7 +52,7 @@ namespace ImageFilterApp
                     }
 
                     UpdateImagePreview(previewImageBitMap);
-                    return previewImageBitMap;
+                    ModifiedBitmap = previewImageBitMap;
                 }
             }
         }
@@ -72,33 +69,11 @@ namespace ImageFilterApp
             return image;
         }
 
-        private void UpdateImagePreview(Bitmap previewImageBitMap)
+        public void UpdateImagePreview(Bitmap previewImageBitMap)
         {
             newImagePreview.Source = ConvertBitMapToImageSource(previewImageBitMap);
         }
-
-
-        private void OpenFileBrowserToSelectImage(object sender, RoutedEventArgs e)
-        {
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.ShowDialog();
-
-            GetFilePathOfImage(openFileDialog);
-            SetImageFromFile();
-        }
-
-        private void GetFilePathOfImage(OpenFileDialog openFileDialog1)
-        {
-            ImageFilePath = openFileDialog1.FileName;
-        }
-
-        private void SetImageFromFile()
-        {
-            imagePreview.Source = new BitmapImage(new Uri(ImageFilePath));
-            newImagePreview.Source = new BitmapImage(new Uri(ImageFilePath));
-        }
-
-
+        
         public System.Drawing.Color GetNewPixelColor(System.Drawing.Color oldColor, ColorModifier colorModifier)
         {
             int newRed = Convert.ToInt32(oldColor.R + (colorModifier.Red * 2.5));
@@ -123,20 +98,7 @@ namespace ImageFilterApp
             return newColor;
 
         }
-
-        private void SaveImageCopy(object sender, RoutedEventArgs e)
-        {
-            string newImageFilePath = ImageFilePath;
-
-            while (File.Exists(newImageFilePath))
-            {
-                newImageFilePath = FilePathOfWorkingDirectory + @"\" + System.IO.Path.GetFileNameWithoutExtension(newImageFilePath) + "-COPY" + System.IO.Path.GetExtension(newImageFilePath);
-            }
-
-            // create a new file based on the bitmap in the right box
-            // this is the last step to be "working"
-        }
-
+                
         public void applyToImageButton_Click(object sender, RoutedEventArgs e)
         {
             int red = Convert.ToInt32(sliderRed.Value);
@@ -149,5 +111,36 @@ namespace ImageFilterApp
 
 
 
+        public void OpenFileBrowserToSelectImage(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            if (openFileDialog.ShowDialog() == true)
+            {
+                GetFilePathOfImage(openFileDialog);
+                SetImageFromFile();
+            }
+        }
+
+        public void GetFilePathOfImage(OpenFileDialog openFileDialog1)
+        {
+            ImageFilePath = openFileDialog1.FileName;
+        }
+
+        public void SetImageFromFile()
+        {
+            imagePreview.Source = new BitmapImage(new Uri(ImageFilePath));
+            newImagePreview.Source = new BitmapImage(new Uri(ImageFilePath));
+        }
+
+        public void SaveImageCopy(object sender, RoutedEventArgs e)
+        {
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            if (saveFileDialog.ShowDialog() == true)
+            {
+                ModifiedBitmap.Save(saveFileDialog.FileName, ImageFormat.Jpeg);
+            }
+        }
+
+        
     }
 }
