@@ -30,37 +30,41 @@ namespace ImageFilterApp
         }
 
 
-        public void ChangeImageColors(ColorModifier newColorInfo)
+        public void ChangeImageColorsAndUpdateImage(ColorModifier newColorInfo)
         {
-            byte[] imageInBytes = File.ReadAllBytes(ImageFilePath);
-
-            using (MemoryStream ms = new MemoryStream(imageInBytes))
+            if (ImageFilePath != null)
             {
-                using (System.Drawing.Image img = System.Drawing.Image.FromStream(ms))
+                byte[] imageInBytes = File.ReadAllBytes(ImageFilePath);
+
+                using (MemoryStream ms = new MemoryStream(imageInBytes))
                 {
-                    Bitmap previewImageBitMap = new Bitmap(img);
-
-                    for (int xCoordinate = 0; xCoordinate < previewImageBitMap.Width; xCoordinate++)
+                    using (System.Drawing.Image img = System.Drawing.Image.FromStream(ms))
                     {
-                        for (int yCoordinate = 0; yCoordinate < previewImageBitMap.Height; yCoordinate++)
+                        Bitmap previewImageBitMap = new Bitmap(img);
+
+                        for (int xCoordinate = 0; xCoordinate < previewImageBitMap.Width; xCoordinate++)
                         {
-                            System.Drawing.Color oldPixelColor = previewImageBitMap.GetPixel(xCoordinate, yCoordinate);
-                            System.Drawing.Color newColor = GetNewPixelColor(oldPixelColor, newColorInfo);
+                            for (int yCoordinate = 0; yCoordinate < previewImageBitMap.Height; yCoordinate++)
+                            {
+                                System.Drawing.Color oldPixelColor = previewImageBitMap.GetPixel(xCoordinate, yCoordinate);
+                                System.Drawing.Color newPixelColor = GetNewPixelColor(oldPixelColor, newColorInfo);
 
-                            previewImageBitMap.SetPixel(xCoordinate, yCoordinate, newColor);
+                                previewImageBitMap.SetPixel(xCoordinate, yCoordinate, newPixelColor);
+                            }
                         }
-                    }
 
-                    UpdateImagePreview(previewImageBitMap);
-                    ModifiedBitmap = previewImageBitMap;
+                        UpdateImagePreview(previewImageBitMap);
+                        ModifiedBitmap = previewImageBitMap;
+                    }
                 }
             }
+            
         }
 
-        public BitmapImage ConvertBitMapToImageSource(Bitmap src)
+        public BitmapImage ConvertBitmapToImageSource(Bitmap sourceBitmap)
         {
             MemoryStream ms = new MemoryStream();
-            ((System.Drawing.Bitmap)src).Save(ms, System.Drawing.Imaging.ImageFormat.Bmp);
+            ((System.Drawing.Bitmap)sourceBitmap).Save(ms, System.Drawing.Imaging.ImageFormat.Bmp);
             BitmapImage image = new BitmapImage();
             image.BeginInit();
             ms.Seek(0, SeekOrigin.Begin);
@@ -71,7 +75,7 @@ namespace ImageFilterApp
 
         public void UpdateImagePreview(Bitmap previewImageBitMap)
         {
-            newImagePreview.Source = ConvertBitMapToImageSource(previewImageBitMap);
+            newImagePreview.Source = ConvertBitmapToImageSource(previewImageBitMap);
         }
         
         public System.Drawing.Color GetNewPixelColor(System.Drawing.Color oldColor, ColorModifier colorModifier)
@@ -106,27 +110,26 @@ namespace ImageFilterApp
             int blue = Convert.ToInt32(sliderBlue.Value);
 
             ColorModifier newColorModifier = new ColorModifier(red, green, blue);
-            ChangeImageColors(newColorModifier);
+            ChangeImageColorsAndUpdateImage(newColorModifier);
         }
 
-
-
-        public void OpenFileBrowserToSelectImage(object sender, RoutedEventArgs e)
+        
+        public void OpenFileBrowserAndSetImage(object sender, RoutedEventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
             if (openFileDialog.ShowDialog() == true)
             {
-                GetFilePathOfImage(openFileDialog);
-                SetImageFromFile();
+                SetFilePathOfImage(openFileDialog);
+                SetImagesFromFile();
             }
         }
 
-        public void GetFilePathOfImage(OpenFileDialog openFileDialog1)
+        public void SetFilePathOfImage(OpenFileDialog openFileDialog1)
         {
             ImageFilePath = openFileDialog1.FileName;
         }
 
-        public void SetImageFromFile()
+        public void SetImagesFromFile()
         {
             imagePreview.Source = new BitmapImage(new Uri(ImageFilePath));
             newImagePreview.Source = new BitmapImage(new Uri(ImageFilePath));

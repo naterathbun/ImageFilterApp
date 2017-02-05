@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ImageFilterApp"
         mc:Ignorable="d"
-        Title="Image Filter and Manipulator" Height="360" Width="800" ResizeMode="NoResize">
+        Title="Image Filter App by Nathan Rathbun" Height="360" Width="800" ResizeMode="NoResize">
     <Grid>
         <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="245" Margin="24,17,0,0" VerticalAlignment="Top" Width="245"/>
         <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="245" Margin="298,17,0,0" VerticalAlignment="Top" Width="245"/>
@@ -14,7 +14,7 @@
         </Border>
 
         <Image x:Name="imagePreview" HorizontalAlignment="Left" Height="225" Margin="34,28,0,0" VerticalAlignment="Top" Width="225" ToolTip="Image Preview"/>
-        <Button x:Name="loadImageButton" Content="Load New Image" HorizontalAlignment="Left" Margin="24,275,0,0" VerticalAlignment="Top" Width="245" Height="35" ToolTip="Select Image File To Load" Click="OpenFileBrowserToSelectImage"/>
+        <Button x:Name="loadImageButton" Content="Load New Image" HorizontalAlignment="Left" Margin="24,275,0,0" VerticalAlignment="Top" Width="245" Height="35" ToolTip="Select Image File To Load" Click="OpenFileBrowserAndSetImage"/>
         <Button x:Name="saveImageButton" Content="Save Image Copy" HorizontalAlignment="Left" Margin="298,275,0,0" VerticalAlignment="Top" Width="245" Height="35" ToolTip="Select Image File To Load" Click="SaveImageCopy"/>
         <Image x:Name="newImagePreview" HorizontalAlignment="Left" Height="225" Margin="309,28,0,0" VerticalAlignment="Top" Width="225" ToolTip="Image Preview"/>
         <Label x:Name="originalLabel" Content="Original" HorizontalAlignment="Left" Margin="114,-10,0,0" VerticalAlignment="Top" FontSize="16"/>
