@@ -15,11 +15,11 @@
 
         <Image x:Name="imagePreview" HorizontalAlignment="Left" Height="225" Margin="34,28,0,0" VerticalAlignment="Top" Width="225" ToolTip="Image Preview"/>
         <Button x:Name="loadImageButton" Content="Load New Image" HorizontalAlignment="Left" Margin="24,275,0,0" VerticalAlignment="Top" Width="245" Height="35" ToolTip="Select Image File To Load" Click="OpenFileBrowserAndSetImage"/>
-        <Button x:Name="saveImageButton" Content="Save Image Copy" HorizontalAlignment="Left" Margin="298,275,0,0" VerticalAlignment="Top" Width="245" Height="35" ToolTip="Select Image File To Load" Click="SaveImageCopy"/>
+        <Button x:Name="saveImageButton" Content="Save Image Copy" HorizontalAlignment="Left" Margin="298,275,0,0" VerticalAlignment="Top" Width="245" Height="35" ToolTip="Save Image Copy as Jpg" Click="SaveImageCopy"/>
         <Image x:Name="newImagePreview" HorizontalAlignment="Left" Height="225" Margin="309,28,0,0" VerticalAlignment="Top" Width="225" ToolTip="Image Preview"/>
         <Label x:Name="originalLabel" Content="Original" HorizontalAlignment="Left" Margin="114,-10,0,0" VerticalAlignment="Top" FontSize="16"/>
         <Label x:Name="modifiedLabel" Content="Modifed" HorizontalAlignment="Left" Margin="385,-10,0,0" VerticalAlignment="Top" FontSize="16"/>
-        <Button x:Name="applyToImageButton" Content="Apply To Image" HorizontalAlignment="Left" Margin="571,275,0,0" VerticalAlignment="Top" Width="190" Height="35" ToolTip="Select Image File To Load" Click="applyToImageButton_Click"/>
+        <Button x:Name="applyToImageButton" Content="Apply To Image" HorizontalAlignment="Left" Margin="571,275,0,0" VerticalAlignment="Top" Width="190" Height="35" ToolTip="Apply Color Modifications to Image" Click="applyToImageButton_Click"/>
         <TextBox x:Name="redTextBox" TextWrapping="Wrap" Text="{Binding Value, ElementName=sliderRed, UpdateSourceTrigger=PropertyChanged}" Margin="579,91,163,210" BorderBrush="{x:Null}" Width="52"/>
         <TextBox x:Name="greenTextBox" TextWrapping="Wrap" Text="{Binding Value, ElementName=sliderGreen, UpdateSourceTrigger=PropertyChanged}" Margin="579,139,163,161" BorderBrush="{x:Null}" Width="52"/>
         <TextBox x:Name="blueTextBox" TextWrapping="Wrap" Text="{Binding Value, ElementName=sliderBlue, UpdateSourceTrigger=PropertyChanged}" Margin="579,186,163,107" BorderBrush="{x:Null}" Width="52"/>
