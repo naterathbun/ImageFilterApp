@@ -47,7 +47,7 @@ namespace ImageFilterApp
                     }
                 }
             }
-            
+
         }
 
         public BitmapImage ConvertBitmapToImageSource(Bitmap sourceBitmap)
@@ -66,7 +66,7 @@ namespace ImageFilterApp
         {
             newImagePreview.Source = ConvertBitmapToImageSource(previewImageBitMap);
         }
-        
+
         public System.Drawing.Color GetNewPixelColor(System.Drawing.Color oldColor, ColorModifier colorModifier)
         {
             int newRed = Convert.ToInt32(oldColor.R + (colorModifier.Red * 2.5));
@@ -91,7 +91,7 @@ namespace ImageFilterApp
             return newColor;
 
         }
-                
+
         public void applyToImageButton_Click(object sender, RoutedEventArgs e)
         {
             int red = Convert.ToInt32(sliderRed.Value);
@@ -102,7 +102,7 @@ namespace ImageFilterApp
             ChangeImageColorsAndUpdateImage(newColorModifier);
         }
 
-        
+
         public void OpenFileBrowserAndSetImage(object sender, RoutedEventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
@@ -132,10 +132,11 @@ namespace ImageFilterApp
 
             if (saveFileDialog.ShowDialog() == true)
             {
-                ModifiedBitmap.Save(saveFileDialog.FileName, ImageFormat.Jpeg);
+                if (ModifiedBitmap != null)
+                {
+                    ModifiedBitmap.Save(saveFileDialog.FileName, ImageFormat.Jpeg);
+                }
             }
         }
-
-        
     }
 }
